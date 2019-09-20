@@ -26,21 +26,52 @@
                 <td>Location: <encounterLocation default="GlobalProperty:kenyaemr.defaultLocation" type="autocomplete" /></td>
             </tr>
         </table>
-    </div>
-
+</div>
     <div class="ke-form-content">
-        <div>
-            Next TCA: <obs conceptId="2200BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB" />
-        </div>
-        <br/>
-        <div>
-            Current Height:<obs conceptId="2194BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"/>
-        </div>
-        <br/>
-        <div>
-            Fatigue: <obs conceptId="3089BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"/>
-        </div>
-        <br/>
+        <fieldset>
+            <legend>Basic Patient Information</legend>
+
+            <table cellspacing="10">
+                <tr>
+                    <th> </th>
+                    <th>Current</th>
+                    <th>Recent</th>
+                </tr>
+                <tr>
+                    <td>Weight</td>
+                    <td><obs id="weight" conceptId="5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />kg</td>
+                    <td><span class="value"><recentObs conceptId="5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></span></td>
+                </tr>
+                <tr>
+                    <td>Height</td>
+                    <td><obs id="height" conceptId="5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />cm</td>
+                    <td><span class="value"><recentObs conceptId="5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></span></td>
+                </tr>
+                <tr>
+                    <td>BMI</td>
+                    <td><span id="calculated-bmi" class="value"></span></td>
+                    <td><span id="recent-calculated-bmi" class="value"></span></td>
+                </tr>
+                <tr>
+                    <td>MUAC</td>
+                    <td><obs conceptId="1343AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></td>
+                    <td><span class="value"><recentObs conceptId="1343AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></span></td>
+                </tr>
+                <includeIf velocityTest="$patient.gender == 'F' ">
+                    <tr>
+                        <td>LMP</td>
+                        <td><obs id="lmp-date" conceptId="1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></td>
+                        <td><span class="value"><recentObs conceptId="1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></span></td>
+                    </tr>
+                </includeIf>
+                <tr>
+                    <td>Next Appointment Date</td>
+                    <td><obs id="tca" conceptId="5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></td>
+                    <td><span class="value"><recentObs conceptId="5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></span></td>
+                </tr>
+            </table>
+        </fieldset>
+
     </div>
 
     <div class="ke-form-footer">

@@ -1,13 +1,14 @@
 package org.openmrs.module.basicexample.reporting.builder;
 
+import org.openmrs.PatientIdentifierType;
+import org.openmrs.module.basicexample.Metadata;
 import org.openmrs.module.basicexample.reporting.converter.LastVisitDateDataDefinition;
-import org.openmrs.module.basicexample.reporting.converter.PatientUPNVisitDataDefinition;
-import org.openmrs.module.basicexample.reporting.converter.SerialNoVisitDataDefinition;
 import org.openmrs.module.basicexample.reporting.definition.SeenPatientCohortDefinition;
 import org.openmrs.module.kenyacore.report.ReportDescriptor;
 import org.openmrs.module.kenyacore.report.ReportUtils;
 import org.openmrs.module.kenyacore.report.builder.AbstractReportBuilder;
 import org.openmrs.module.kenyacore.report.builder.Builds;
+import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.reporting.common.SortCriteria;
 import org.openmrs.module.reporting.data.DataDefinition;
 import org.openmrs.module.reporting.data.converter.BirthdateConverter;
@@ -15,7 +16,9 @@ import org.openmrs.module.reporting.data.converter.DataConverter;
 import org.openmrs.module.reporting.data.converter.ObjectFormatter;
 import org.openmrs.module.reporting.data.encounter.definition.EncounterDatetimeDataDefinition;
 import org.openmrs.module.reporting.data.encounter.definition.EncounterTypeDataDefinition;
+import org.openmrs.module.reporting.data.patient.definition.ConvertedPatientDataDefinition;
 import org.openmrs.module.reporting.data.patient.definition.PatientIdDataDefinition;
+import org.openmrs.module.reporting.data.patient.definition.PatientIdentifierDataDefinition;
 import org.openmrs.module.reporting.data.person.definition.*;
 import org.openmrs.module.reporting.dataset.definition.DataSetDefinition;
 import org.openmrs.module.reporting.dataset.definition.EncounterDataSetDefinition;
@@ -62,9 +65,20 @@ public class SeenPatientsReportBuilder extends AbstractReportBuilder {
 		DataConverter nameFormatter = new ObjectFormatter("{familyName}, {givenName} {middleName}");
 		DataDefinition nameDef = new ConvertedPersonDataDefinition("name", new PreferredNameDataDefinition(), nameFormatter);
 		
+		PatientIdentifierType upn = MetadataUtils.existing(PatientIdentifierType.class,
+		    Metadata.IdentifierType.UNIQUE_PATIENT_NUMBER);
+		PatientIdentifierType serialno = MetadataUtils.existing(PatientIdentifierType.class,
+		    Metadata.IdentifierType.PATIENT_CLINIC_NUMBER);
+		
+		DataConverter identifierFormatter = new ObjectFormatter("{identifier}");
+		DataDefinition UPN = new ConvertedPatientDataDefinition("identifier", new PatientIdentifierDataDefinition(
+		        upn.getName(), upn), identifierFormatter);
+		DataDefinition SerialNo = new ConvertedPatientDataDefinition("identifier", new PatientIdentifierDataDefinition(
+		        serialno.getName(), serialno), identifierFormatter);
+		
 		dsd.addColumn("PatientID", new PatientIdDataDefinition(), "");
-		dsd.addColumn("UPN", new PatientUPNVisitDataDefinition(), null);
-		dsd.addColumn("Serial No", new SerialNoVisitDataDefinition(), "");
+		dsd.addColumn("UPN", UPN, null);
+		dsd.addColumn("Serial No", SerialNo, "");
 		dsd.addColumn("Patient Name", nameDef, "");
 		dsd.addColumn("Date of Birth", new BirthdateDataDefinition(), "", new BirthdateConverter(DATE_FORMAT));
 		dsd.addColumn("Age", new AgeDataDefinition(), "");
