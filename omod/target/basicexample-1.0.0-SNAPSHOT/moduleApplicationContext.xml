@@ -56,16 +56,26 @@
         </property>
     </bean>
 
-    <bean id="basicexample.common.form.trial" class="org.openmrs.module.kenyacore.form.FormDescriptor">
-        <property name="targetUuid" value="c53706cd-dc81-460d-9766-a08e645c4c24" />
+    <bean id="trialfaces.config.form" class="org.openmrs.module.kenyacore.form.FormConfiguration">
+        <property name="commonVisitForms">
+            <set>
+<!--                add all your forms here-->
+                <ref bean="basicexample.common.form.trialform" />
+            </set>
+        </property>
+    </bean>
+
+    <bean id="basicexample.common.form.trialform" class="org.openmrs.module.kenyacore.form.FormDescriptor">
+        <property name="targetUuid" value="a3f6cb91-4e40-48b5-b22b-01755a106fc2" />
         <property name="apps">
             <set>
                 <ref bean="kenyaemr.app.clinician" />
                 <ref bean="kenyaemr.app.chart" />
             </set>
         </property>
-        <property name="htmlform" value="basicexample:htmlforms/trial.html" />
-        <property name="order" value="9001" />
+        <property name="icon" value="kenyaui:forms/generic.png" />
+        <property name="htmlform" value="basicexample:trial.html" />
+        <property name="order" value="901" />
     </bean>
 
     <bean id="basicexample.faces.config.report" class="org.openmrs.module.kenyacore.report.ReportConfiguration">

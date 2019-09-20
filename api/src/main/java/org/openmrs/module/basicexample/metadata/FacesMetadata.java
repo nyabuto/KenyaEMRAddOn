@@ -34,14 +34,14 @@ public class FacesMetadata extends AbstractMetadataBundle {
 	
 	public static final class _Form {
 		
-		public static final String FACES_TRIAL_FORM = "c53706cd-dc81-460d-9766-a08e645c4c24";
+		public static final String FACES_TRIAL_FORM = "a3f6cb91-4e40-48b5-b22b-01755a106fc2";
 	}
 	
 	@Override
 	public void install() throws Exception {
 		// doing this in the scheduled task so that previous value set is preserved
-		install(form("Faces Trial Form", "Testing if faces forms have been added into the system",
-		    _EncounterType.Consultation, "1", _Form.FACES_TRIAL_FORM));
+		install(form("Faces Encounter Form", "Faces encounter form copied from KenyaEMR encounter form",
+		    _EncounterType.Consultation, "2", _Form.FACES_TRIAL_FORM));
 	}
 	
 }
