@@ -35,9 +35,9 @@
 		<calculationVersion>1.0</calculationVersion>
 		<htmlformentryVersion>2.4</htmlformentryVersion>
 		<idgenVersion>2.6</idgenVersion>
-		<kenyacoreVersion>2.4.2-SNAPSHOT</kenyacoreVersion>
-		<kenyaemrVersion>17.0.2-SNAPSHOT</kenyaemrVersion>
-		<kenyauiVersion>2.1.2-SNAPSHOT</kenyauiVersion>
+		<kenyacoreVersion>2.4.1</kenyacoreVersion>
+		<kenyaemrVersion>17.0.2</kenyaemrVersion>
+		<kenyauiVersion>2.1.1</kenyauiVersion>
 		<metadatadeployVersion>1.3</metadatadeployVersion>
 		<metadatasharingVersion>1.1.8</metadatasharingVersion>
 		<reportingVersion>0.9.8.1</reportingVersion>
